@@ -1,5 +1,5 @@
 import React from "react";
-import '../index.css'
+import '../../index.css'
 
 export const ColumnFilter = ({column})=>{
     const {filterValue, setFilter} = column

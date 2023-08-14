@@ -7,7 +7,7 @@ export default function SidebarDefault(){
         <Sidebar.Items>
           <Sidebar.ItemGroup>
             <Sidebar.Item
-              href="#"
+              href="/dashboard"
               icon={HiChartPie}
             >
               <p>
@@ -24,11 +24,11 @@ export default function SidebarDefault(){
               </p>
             </Sidebar.Item>
             <Sidebar.Item
-              href="#"
+              href="/updateSpreadsheet"
               icon={HiInbox}
             >
               <p>
-                Filter
+                Update via Spreadsheet
               </p>
             </Sidebar.Item>
             <Sidebar.Item

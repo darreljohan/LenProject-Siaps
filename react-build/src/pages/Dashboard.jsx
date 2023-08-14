@@ -1,10 +1,11 @@
 import '../index.css'
 import axios from 'axios';
-import TableAssets from '../components/tableAsset';
+import TableAssets from '../components/table/tableAsset';
 import { useState, useEffect } from 'react';
 import SidebarDefault from '../components/sidebarFlowBite';
 import { Button, Sidebar } from 'flowbite-react';
 import { HiOutlineArrowRight } from 'react-icons/hi';
+import TableFilter from '../components/table/tableFilter';
 
 const Dashboard = () => {
     const [sidebarOpen, setSidebarOpen] = useState(false)
@@ -25,7 +26,7 @@ const Dashboard = () => {
                     </Button>
                 </div>
                 <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-                    <TableAssets />
+                    <TableFilter />
                 </div>
             </div>
         </div>

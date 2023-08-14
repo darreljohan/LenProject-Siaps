@@ -1,4 +1,4 @@
-import '../index.css'
+import '../../index.css'
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 
@@ -21,27 +21,12 @@ export default function TableAssets() {
 
     if (!theadData) return null;
 
-    const ascending = (property)=>{
-        const sortedData = [...tbodyData].sort((a, b) => {
-            const aValue = a[property];
-            const bValue = b[property];
-        
-            if (typeof aValue === 'string' && typeof bValue === 'string') {
-              return aValue.localeCompare(bValue);
-            }
-        
-            return aValue - bValue;
-          });
-        
-          setData(sortedData);
-    }
-
    return (
       <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
           <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
               <tr>
                 {theadData.map(heading => {
-                     return <th scope="col" class="px-6 py-3" key={heading}>{heading}<button class="p-1" onClick={()=>ascending(heading)}>^</button><button class="p-1">v</button></th>
+                     return <th scope="col" class="px-6 py-3" key={heading}></th>
                 })}
               </tr>
           </thead>

@@ -42,7 +42,7 @@ export const COLUMNS = [
         Header : 'Tahun Perolehan',
         Footer : 'Tahun Perolehan',
         accessor: 'Tahun_Perolehan',
-        Cell: ({value})=>{return format(new Date(value), 'dd/MM/yyyy')},
+        //Cell: ({value})=>{return format(new Date(value), 'dd/MM/yyyy')},
         Filter : ColumnFilter
     },
     {
