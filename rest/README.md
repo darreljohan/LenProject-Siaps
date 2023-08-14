@@ -1,6 +1,12 @@
 # API Documentation
 API Documentation for SIAP application to connect into SQL and Spreadsheet
 
+How to install API
+1. open terminal change directory to /rest/  
+2. type in terminal "npm install"
+3. configure database in index.js
+4. type in terminal "npm run api-service" to run the api server with npm
+
 ## User
 
 ## Table
