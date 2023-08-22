@@ -6,7 +6,8 @@ import TableFilter from '../components/table/tableFilter'
 
 const Canvas = () => {
 return(
-   <TableFilter></TableFilter>
+   <>
+   </>
 )
 }
 

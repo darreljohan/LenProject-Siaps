@@ -1,15 +1,16 @@
 import '../index.css'
 import axios from 'axios';
+import TableAssets from '../components/table/tableAsset';
 import { useState, useEffect } from 'react';
 import SidebarDefault from '../components/sidebarFlowBite';
 import { Button, Sidebar } from 'flowbite-react';
 import { HiOutlineArrowRight } from 'react-icons/hi';
 import TableFilter from '../components/table/tableFilter';
-import FormSpreadsheet from '../components/formSpreadsheet';
-import TableRecheck from '../components/table/tableRecheck';
+import { useSearchParams } from 'react-router-dom';
 
-const UpdateSpreadsheet = () => {
+const TableViewer = () => {
     const [sidebarOpen, setSidebarOpen] = useState(false)
+    const [queryParameter] = useSearchParams()
     
     const toggleSidebar = () => {
         setSidebarOpen(!sidebarOpen);
@@ -25,19 +26,13 @@ const UpdateSpreadsheet = () => {
                     <path d="M3.414 1A2 2 0 0 0 0 2.414v11.172A2 2 0 0 0 3.414 15L9 9.414a2 2 0 0 0 0-2.828L3.414 1Z"/>
                 </svg>
             </div>
-            <div class='grow flex-col'>
-                <div class='flex flex-row w-1/2 bg bg-slate-600'>
-                    <FormSpreadsheet/>
+            <div class='flex flex-col p-5'>            
+                <div class="shadow-md sm:rounded-lg">
+                    <TableFilter tableName={queryParameter.get("table")}/>
                 </div>
-                <div >
-                    <TableRecheck/>
-                </div>
-            </div>
-            <div> 
-
             </div>
         </div>
     )
 }
 
-export default UpdateSpreadsheet
+export default TableViewer

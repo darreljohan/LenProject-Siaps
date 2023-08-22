@@ -18,7 +18,8 @@ const Register = ()=>{
             let bodyRequest = {
                 user:username,
                 mail:email,
-                pass:password
+                pass:password,
+                jabatan:jabatan
             }
             axios.post('http://localhost:3000/user/requestAccount', bodyRequest).then(
                 (response)=>{
@@ -74,7 +75,7 @@ const Register = ()=>{
                             <input type="password" name="confirm-password" id="confirm-password" placeholder="••••••••" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required="" onChange={(e)=>setConfirmPassword(e.target.value)}/>
                         </div>
                         <div className='text-red-600'>{passwordAlert}</div>
-                        <button type="submit" className="w-full text-white bg-sky-600 hover:bg-sky-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800" onClick={formSubmit}>Create an account</button>
+                        <button type="submit" className="w-full text-white bg-gradient-to-r from-green-900 via-yellow-700 to-green-600 hover:bg-sky-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800" onClick={formSubmit}>Create an account</button>
                         <p className="text-sm font-light text-gray-500 dark:text-gray-400">
                             Already have an account? <a href="/" className="font-medium text-primary-600 hover:underline dark:text-primary-500">Login here</a>
                         </p>

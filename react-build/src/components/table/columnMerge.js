@@ -5,7 +5,7 @@ export const COLUMNS = [
     {
         Header : 'Id',
         Footer : 'Id',
-        accessor: 'Id',
+        accessor: 'id',
         Filter : ColumnFilter
     },
     {

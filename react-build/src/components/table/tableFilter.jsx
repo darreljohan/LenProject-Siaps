@@ -1,11 +1,13 @@
 import axios from 'axios';
 import '../../index.css'
-import { useTable, useSortBy, useGlobalFilter, useFilters, useRowSelect } from 'react-table'
+import { useTable, useSortBy, useGlobalFilter, useFilters, useRowSelect, usePagination } from 'react-table'
 import { COLUMNS } from './columnAsset';
 import { useMemo, useState, useEffect } from 'react';
 import { GlobalFilter } from './globalFilter';
 import { Checkbox } from './checkBoxTable';
-
+import { Dropdown } from 'flowbite-react';
+import FooterFilter from './footerFilter';
+import { Button, Label, TextInput } from 'flowbite-react';
 const Spinner = () => {
     return (
       <div className="spinner">
@@ -16,14 +18,14 @@ const Spinner = () => {
   };
 
 
-const TableFilter = () => {
+const TableFilter = ({tableName}) => {
     const columns = useMemo(()=>COLUMNS, [])
     const [data, setData] = useState([])
     const [loading, setLoading] = useState(true);
-    const [sumRows, setSumRows] = useState('');
+    const [sumRows, setSumRows] = useState(null);
 
     useEffect(() => {
-        axios.get('https://script.google.com/macros/s/AKfycbx5WKO7HCFGeaQejujs1Vd9CHilCXCKbc7jUBVEj0GFwGJoNZwwIa-2NB1Z5x0vCI2i-Q/exec').then(
+        axios.get('http://localhost:3000/table/get?nama_tabel='+tableName).then(
             (response) => {
                 setData(response.data)
                 setLoading(false);
@@ -70,7 +72,7 @@ const TableFilter = () => {
         setGlobalFilter,
         allColumns,
         getToggleHideAllColumnsProps,
-        selectedFlatRows
+        selectedFlatRows,
     } = tableInstance
 
     const { globalFilter } = state
@@ -85,29 +87,31 @@ const TableFilter = () => {
 
     return (
         <>
-        <div>
-          <div>
-            <Checkbox {...getToggleHideAllColumnsProps()} />Hide Column
-          </div>
-          {
-            allColumns.map(column=>(
-              <div key={column.id}>
-                <label>
-                  <input type='checkbox' {...column.getToggleHiddenProps()}></input>
-                  {column.Header}
-                </label>
-              </div>
-            ))
-          }
+        <div className='flex flex-row'>
+          <Dropdown label="Hide Column">
+            {
+              allColumns.map(column=>(
+                <item>
+                <div key={column.id}>
+                  <label>
+                    <input type='checkbox' {...column.getToggleHiddenProps()}></input>
+                    {column.Header}
+                  </label>
+                </div>
+                </item>
+              ))
+            }
+          </Dropdown>
         </div>
-        <GlobalFilter filter={globalFilter} setFilter={setGlobalFilter}></GlobalFilter>
+
+        <div className='flex flex-col'>
         <table {...getTableProps()} className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
             <thead className="text-xs text-gray-700 uppercase bg-gray-200 dark:bg-gray-700 dark:text-gray-400">
                 {headerGroups.map((headerGroup)=>(
-                    <tr {...headerGroup.getHeaderGroupProps()}>
+                    <tr {...headerGroup.getHeaderGroupProps()} className='sticky '>
                         {headerGroup.headers.map((column)=>(
                             <th  className="px-6 py-3">
-                              <div className='flex flex-row' {...column.getHeaderProps(column.getSortByToggleProps())}>
+                              <div className='flex flex-row ' {...column.getHeaderProps(column.getSortByToggleProps())}>
                                 <div className='flex w-5/6'>
                                 {column.render('Header')}
                                 </div>
@@ -132,10 +136,15 @@ const TableFilter = () => {
                     return <td {...cell.getCellProps()} className="px-6 py-4">{cell.render('Cell')}</td>;
                   })}
                 </tr>
-              );
+              )
             })}
           </tbody>
         </table>
+          <div className='flex sticky bottom-0'>
+            <FooterFilter rowsLength={[rows.length, selectedFlatRows.length]}/>
+          </div>
+        </div>
+        
         <pre>
         <code>
           {JSON.stringify(
@@ -146,12 +155,9 @@ const TableFilter = () => {
             2
           )}
         </code>
-      </pre>
-        <div id="pivot">
-            <h1>Total Rows :{rows.length}</h1>
-        </div>
+        </pre>
+    </>
         
-        </>
     )
 }
 
