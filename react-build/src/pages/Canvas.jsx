@@ -1,14 +1,7 @@
-import '../index.css'
-import axios from 'axios'
-import { useEffect, useState, useMemo } from 'react'
-import TableFilter from '../components/table/tableFilter'
-
+import "../index.css";
 
 const Canvas = () => {
-return(
-   <>
-   </>
-)
-}
+  return <></>;
+};
 
-export default Canvas
+export default Canvas;

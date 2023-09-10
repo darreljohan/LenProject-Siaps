@@ -1,11 +1,12 @@
-const { createProxyMiddleware } = require('http-proxy-middleware');
+const { createProxyMiddleware } = require("http-proxy-middleware");
 
-module.exports = function(app) {
+// eslint-disable-next-line no-undef
+module.exports = function (app) {
   app.use(
-    '/api',
+    "/api",
     createProxyMiddleware({
-      target: 'https://script.google.com',
+      target: "https://script.google.com",
       changeOrigin: true,
-    })
+    }),
   );
 };

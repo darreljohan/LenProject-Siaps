@@ -5,6 +5,9 @@ const request = require('request')
 const firebase = require('firebase-admin')
 const credentials = require("./key/credentials.json");
 const mysql = require('mysql')
+const key = require('./key/apiKey.json')
+const multer = require('multer')
+const path = require('path')
 
 let cors = require("cors");
 app.use(cors());
@@ -19,10 +22,36 @@ const connection =  mysql.createConnection({ //Configure your database
 })
 connection.connect()
 
-let addUserRequest = function (body){
+function isValidApiKey(apiKey) {
+  // Check if apiKey exists in your authorized keys list
+  const authorizedKeys = [key.key];
+  return authorizedKeys.includes(apiKey);
+}
+
+const apiKeyMiddleware = (req, res, next)=>{
+  const apiKey = req.body.key
+  if (apiKey && isValidApiKey(apiKey)){
+    next();
+  }else{
+    res.status(401).json({message: 'Unauthorized'})
+  }
+}
+
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, path.join(__dirname, "/sources")); // Specify the directory where you want to store uploaded images
+  },
+  filename: (req, file, cb) => {
+    cb(null, Date.now() + '-' + file.originalname);
+  },
+});
+
+const upload = multer({ storage: storage });
+
+function addUserRequest(body){
   return new Promise((resolve, reject)=>{
     connection.query
-    ("INSERT INTO user_request (username, email, jabatan, password ) VALUES ('"+body.user+"', '"+body.mail+"', '"+'jabatan1'+"', '"+body.pass+"')",
+    ("INSERT INTO user_request (username, email, jabatan, password ) VALUES ('"+body.user+"', '"+body.mail+"', '"+body.jabatan+"', '"+body.pass+"')",
     (err, rows, fields)=>{
       if (err){
         reject(err)
@@ -34,7 +63,7 @@ let addUserRequest = function (body){
   })
 }
 
-let getUserApprovalTable = function(){
+function getUserApprovalTable(){
   return new Promise((resolve, reject)=>{
     connection.query
     ("SELECT * FROM userrequest",
@@ -49,7 +78,7 @@ let getUserApprovalTable = function(){
   })
 }
 
-let deleteUserRequest = function(body){
+function deleteUserRequest(body){
   return new Promise((resolve, reject)=>{
     connection.query
     ("DELETE FROM userrequest WHERE email="+body.email,
@@ -64,7 +93,38 @@ let deleteUserRequest = function(body){
   })
 }
 
-let updateAsset = function(body){
+function addUsertoDatabase(body){
+  return new Promise((resolve, reject)=>{
+    const updateData = body;
+
+    const updateQuery = `
+      INSERT INTO users (
+        username,
+        email,
+        jabatan,
+        password
+    ) VALUES (?, ?, ?, ?) `;
+  
+    const updateValues = [
+      updateData.username,
+      updateData.email,
+      updateData.jabatan,
+      updateData.password,
+    ];
+      connection.query
+      (updateQuery, updateValues,
+      (err, rows, fields)=>{
+        if (err){
+          reject(err)
+        }else{
+          resolve(rows)
+        }
+      }
+      ) 
+    })
+}
+
+function updateAsset(body){
   return new Promise((resolve, reject)=>{
   const id = body.id;
   const updateData = body;
@@ -86,8 +146,17 @@ let updateAsset = function(body){
       rencana_optimisasi = ?,
       lokasi = ?,
       date_edit = ?,
-      user_edit = ?
-    WHERE id = ?
+      user_edit = ?,
+      merk = ?,
+      tipe_mesin = ?,
+      kategori_fungsi_mesin = ?,
+      raw_material = ?
+    WHERE id = ?;
+    INSERT INTO log (
+      user_edit,
+      keterangan,
+      date_edit    
+    ) VALUES (?, ?, ?)
   `;
 
   const updateValues = [
@@ -105,7 +174,14 @@ let updateAsset = function(body){
     updateData.lokasi,
     currentTimestamp,
     updateData.user_edit,
-    id
+    updateData.merk,
+    updateData.tipe_mesin,
+    JSON.stringify(updateData.kategori_fungsi_mesin),
+    JSON.stringify(updateData.raw_material),
+    id,
+    updateData.user_edit,
+    "Mengupdate data "+id+ " pada tabel "+body.nama_tabel,
+    currentTimestamp
   ];
     connection.query
     (updateQuery, updateValues,
@@ -120,7 +196,87 @@ let updateAsset = function(body){
   })
 }
 
-let insertAsset = function(body){
+function updateAssetPhoto(body, link_file){
+  return new Promise((resolve, reject)=>{
+  const id = body.id;
+  const updateData = body;
+  const currentTimestamp = new Date().toISOString();
+
+  const updateQuery = `
+    UPDATE `+body.nama_tabel+` 
+    SET
+      gambar = ?
+    WHERE id = ?;
+    INSERT INTO log (
+      user_edit,
+      keterangan,
+      date_edit    
+    ) VALUES (?, ?, ?)
+  `;
+
+  const updateValues = [
+    link_file,
+    parseInt(id),
+    updateData.user_edit,
+    "Menambahkan foto pada asset "+id+ " pada tabel "+body.nama_tabel,
+    currentTimestamp
+  ];
+    connection.query
+    (updateQuery, updateValues,
+    (err, rows, fields)=>{
+      if (err){
+        reject(err)
+      }else{
+        resolve(rows)
+      }
+    }
+    ) 
+  })
+}
+
+function deleteAssetPhoto(body){
+  return new Promise((resolve, reject)=>{
+  const id = body.id;
+  const updateData = body;
+  const currentTimestamp = new Date().toISOString();
+
+  const updateQuery = `
+    UPDATE `+body.nama_tabel+` 
+    SET
+      gambar = ?,
+      user_edit = ?,
+      date_edit = ?
+    WHERE id = ?;
+    INSERT INTO log (
+      user_edit,
+      keterangan,
+      date_edit    
+    ) VALUES (?, ?, ?)
+  `;
+
+  const updateValues = [
+    null,
+    updateData.user_edit,
+    currentTimestamp,
+    id,
+    updateData.user_edit,
+    "Menghapus foto pada asset "+id+ " pada tabel "+body.nama_tabel,
+    currentTimestamp
+  ];
+    connection.query
+    (updateQuery, updateValues,
+    (err, rows, fields)=>{
+      if (err){
+        reject(err)
+      }else{
+        resolve(rows)
+      }
+    }
+    ) 
+  })
+}
+
+function insertAsset(body){
   return new Promise((resolve, reject)=>{
   const updateData = body;
   const currentTimestamp = new Date().toISOString();
@@ -139,8 +295,19 @@ let insertAsset = function(body){
       nilai_buku, 
       rencana_optimisasi, 
       lokasi,
-      user_edit 
-  ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) `;
+      user_edit,
+      merk,
+      tipe_mesin,
+      kategori_fungsi_mesin,
+      raw_material 
+  ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?); 
+  INSERT INTO log (
+    user_edit,
+    keterangan,
+    date_edit    
+  ) VALUES (?, ?, ?);
+  SELECT LAST_INSERT_ID() AS inserted_id
+  `;
 
   const updateValues = [
     updateData.nama_asset,
@@ -156,6 +323,13 @@ let insertAsset = function(body){
     updateData.rencana_optimisasi,
     updateData.lokasi,
     updateData.user_edit,
+    updateData.merk,
+    updateData.tipe_mesin,
+    JSON.stringify(updateData.kategori_fungsi_mesin),
+    JSON.stringify(updateData.raw_material),
+    updateData.user_edit,
+    "Menambahkan data "+updateData.nama_asset+ " pada tabel "+body.nama_tabel,
+    currentTimestamp
   ];
     connection.query
     (updateQuery, updateValues,
@@ -170,7 +344,7 @@ let insertAsset = function(body){
   })
 }
 
-let getTableAsset = function(body){
+function getTableAsset(body){
   return new Promise((resolve, reject)=>{
     connection.query
     ("SELECT * FROM "+body,
@@ -185,6 +359,94 @@ let getTableAsset = function(body){
   })
 }
 
+function insertMail(body){
+  return new Promise((resolve, reject)=>{
+    const updateData = body;
+    const currentTimestamp = new Date().toISOString();
+  
+    const updateQuery = `
+      INSERT INTO `+body.nama_tabel+` (
+        nomor_surat, 
+        link_file, 
+        nama_file, 
+        mime_type, 
+        url
+    ) VALUES (?, ?, ?, ?, ?) `;
+  
+    const updateValues = [
+      updateData.nomor_surat,
+      updateData.link_file,
+      updateData.nama_file, 
+      updateData.mime_type,
+      updateData.url
+    ];
+      connection.query
+      (updateQuery, updateValues,
+      (err, rows, fields)=>{
+        if (err){
+          reject(err)
+        }else{
+          resolve(rows)
+        }
+      }
+      ) 
+    })
+}
+
+function updateMail(body){
+  return new Promise((resolve, reject)=>{
+    const id = body.id_surat;
+    const updateData = body;
+    const currentTimestamp = new Date().toISOString();
+  
+    const updateQuery = `
+      UPDATE `+body.nama_tabel+` 
+      SET
+        nomor_surat = ?,
+        link_file = ?,
+        nama_file = ?,
+        mime_type = ?,
+        url = ?,
+        date_edit = ?
+      WHERE id_surat = ?
+    `;
+  
+    const updateValues = [
+      updateData.nomor_surat,
+      updateData.link_file,
+      updateData.nama_file,
+      updateData.mime_type,
+      updateData.url,
+      currentTimestamp,
+      id
+    ];
+      connection.query
+      (updateQuery, updateValues,
+      (err, rows, fields)=>{
+        if (err){
+          reject(err)
+        }else{
+          resolve(rows)
+        }
+      }
+      ) 
+    })
+}
+
+function deleteMail(body){
+  return new Promise((resolve, reject)=>{
+    connection.query
+    ("DELETE FROM "+body.nama_tabel+" WHERE id_surat="+body.id_surat,
+    (err, rows, fields)=>{
+      if (err){
+        reject(err)
+      }else{
+        resolve(rows)
+      }
+    }
+    ) 
+  })
+}
 
 app.use(express.json())
 firebase.initializeApp({
@@ -197,10 +459,20 @@ app.post('/user/signup', async(req, res)=>{
     password: req.body.password,
     emailVerified: false,
     disabled: false
+  }).then(()=>{
+    const table = addUsertoDatabase(req.body).then((value)=>{
+      res.send('success')
+    },
+    (err)=>{
+      res.send('failed')
+    })
+  }).catch((error)={
+    
   })
-  res.json(userResponse)
 })
 
+
+//WEB ONLY
 app.get('/user/reject', async(req, res)=>{
   let table = deleteUserRequest(req.body).then((value)=>{
     res.send('success')
@@ -208,10 +480,10 @@ app.get('/user/reject', async(req, res)=>{
   (err)=>{
     res.send('failed')
   }
-
   )
 })
 
+//WEB ONLY
 app.get('/user/approvalTable', async(req, res)=>{
   let table = getUserApprovalTable().then((value)=>{
     res.send(JSON.parse(JSON.stringify(value)))
@@ -234,6 +506,7 @@ app.post('/user/requestAccount', async(req, res)=>{
   )
 })
 
+//WEB ONLY
 app.get('/user/approvalTable', async(req, res)=>{
   let table = getUserApprovalTable().then((value)=>{
     res.send(JSON.parse(JSON.stringify(value)))
@@ -245,7 +518,7 @@ app.get('/user/approvalTable', async(req, res)=>{
   )
 })
 
-//Tambahkan params nama table
+//Tambahkan params nama table - WEB ONLY
 app.get('/table/mergeSpreadsheetTable', (req, res) => {
   request('https://script.google.com/macros/s/AKfycbyT8m4aZHjVQVwi-KD4lDgWfqe7oxM63sXw5RFQ5IftnjJpMtZx3gUSssCfvS9CwzK4/exec?action=' + req.query.action + "&destinationSheet=" + req.query.destinationSheet +"&spreadsheetId=1s-SAB3kPISzLc2ppEq8IZ4-OrSAlsuyQBqNME2RJBa8", (err, body) => {
     const jsonArray = JSON.parse(body.body);
@@ -289,7 +562,7 @@ app.get('/table/mergeSpreadsheetTable', (req, res) => {
 //Jangan Dipakai
 app.post('/table/oneTimeInput', (req, res)=>{
   request("https://script.google.com/macros/s/AKfycbyT8m4aZHjVQVwi-KD4lDgWfqe7oxM63sXw5RFQ5IftnjJpMtZx3gUSssCfvS9CwzK4/exec?action=getTable&destinationSheet=Len", (err, body)=>{
-    const insertQuery = 'INSERT INTO pindad_assets (id, nama_asset, jenis_asset, kondisi, status_pemakaian, utilisasi, tahun_perolehan, umur_teknis, sumber_dana, nilai_perolehan, nilai_buku, rencana_optimisasi, lokasi) VALUES ?';
+   const insertQuery = 'INSERT INTO pindad_assets (id, nama_asset, jenis_asset, kondisi, status_pemakaian, utilisasi, tahun_perolehan, umur_teknis, sumber_dana, nilai_perolehan, nilai_buku, rencana_optimisasi, lokasi) VALUES ?';
 
    const values = JSON.parse(body.body).map(obj => [obj.id, obj.nama_asset, obj.jenis_asset, obj.kondisi, obj.status_pemakaian, obj.utilisasi, obj.tahun_perolehan, obj.umur_teknis, obj.sumber_dana, obj.nilai_perolehan, obj.nilai_buku, obj.rencana_optimisasi, obj.lokasi]);
 
@@ -305,7 +578,7 @@ app.post('/table/oneTimeInput', (req, res)=>{
   })
 })
 
-app.get('/table/get', (req, res)=>{
+app.get('/table/get',(req, res)=>{
   let table = getTableAsset(req.query.nama_tabel).then((value)=>{
     res.send(JSON.parse(JSON.stringify(value)))
   },
@@ -329,6 +602,66 @@ app.put('/table/update', (req, res)=>{
 
 app.post('/table/insert', (req, res)=>{
   let table = insertAsset(req.body).then((value)=>{
+    res.send(value[2][0])
+  },
+  (err)=>{
+    console.log(err)
+    res.send('failed')
+  }
+  )
+})
+
+app.post('/table/uploadPhoto', upload.single("photo"), (req, res)=>{
+  const file = req.file.path;
+  if (!file) {
+    res.status(400).send({
+      status: false,
+      data: "No File is selected.",
+    });
+  }
+  let table = updateAssetPhoto(req.body, file).then((value)=>{
+    res.send('success')
+  },
+  (err)=>{
+    console.log(err)
+    res.send('failed')
+  })
+})
+
+app.delete('/table/deletePhoto', (req, res)=>{
+  let table = deleteAssetPhoto(req.body).then((value)=>{
+    res.send('success')
+  },
+  (err)=>{
+    console.log(err)
+    res.send('failed')
+  })
+});
+
+app.post('/mail/insert', (req, res)=>{
+  let table = insertMail(req.body).then((value)=>{
+    res.send('success')
+  },
+  (err)=>{
+    console.log(err)
+    res.send('failed')
+  }
+  )
+})
+
+app.put('/mail/update', (req, res)=>{
+  let table = updateMail(req.body).then((value)=>{
+    res.send('success')
+  },
+  (err)=>{
+    console.log(err)
+    res.send('failed')
+  }
+  )
+})
+
+app.delete('/mail/delete', (req, res)=>{
+  let table = deleteMail(req.body).then((value)=>{
     res.send('success')
   },
   (err)=>{

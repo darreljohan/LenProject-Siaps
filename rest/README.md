@@ -1,4 +1,4 @@
-# API Documentation
+# Android API Documentation
 API Documentation for SIAP application to connect into SQL and Spreadsheet
 
 How to install API
@@ -8,23 +8,31 @@ How to install API
 4. type in terminal "npm run api-service" to run the api server with npm
 
 ## User
+### /user/requestAccount
+Add account to be accepted by admin
+POST
+Body:
+```json
+{
+  user = ?, //username
+  mail = ?, //email
+  jabatan = ?,
+  pass = ? //password
+}
+```
 
 ## Table
 
-### /table/mergeSpreadsheetTable
-Load array of json for merge preview  
-GET   
-params : action& destinationSheet& tableName  
-
 ### /table/get
-load all row of table
+load all row from table name. 
+List of Table Name : Cek di database
 GET
 params : nama_tabel
 
 ### /table/insert 
 Insert one row of asset to the destination table. ID will be generated automatically  
 POST  :
-body :  
+Body :  
 ```json
 {
   nama_tabel = ?,
@@ -41,6 +49,17 @@ body :
   rencana_optimisasi = ?,
   lokasi = ?,
   user_edit = ?,
+  merk = ?,
+  tipe_mesin = ?,
+  kategori_fungsi_mesin = ["bubut","cutting"],
+  raw_material = ["bubut","cutting"]
+}
+```
+Response
+return id of inserted asset
+```
+{
+    inserted_id : ?,
 }
 ```
 
@@ -65,5 +84,34 @@ body :
   rencana_optimisasi = ?,
   lokasi = ?,
   user_edit = ?,
+  merk = ?,
+  tipe_mesin = ?,
+  kategori_fungsi_mesin = ["bubut","cutting"],
+  raw_material = ["bubut","cutting"]
+}
+```
+
+### /table/uploadPhoto - Using Form Data
+upload Photo to the targeted asset id (Single Photo)
+POST
+body:
+```
+{
+    "photo": ?,
+    "nama_tabel": ?,
+    "id": ?,
+    "user_edit": ?,
+}
+```
+
+### /table/deletePhoto
+Delete Photo to the targeted asset id (Single Photo)
+Delete
+body:
+```
+{
+    "nama_tabel": ?,
+    "id": ?,
+    "user_edit": ?,
 }
 ```

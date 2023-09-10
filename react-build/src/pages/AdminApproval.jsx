@@ -1,15 +1,7 @@
-import '../index.css'
-import axios from 'axios';
+import "../index.css";
 
-import { useState, useEffect } from 'react';
+const AdminApproval = () => {
+  return <></>;
+};
 
-const AdminApproval= ()=>{
-    
-    return(
-       <>
-       </>
-    )
-}
-
-export default AdminApproval
-    
+export default AdminApproval;

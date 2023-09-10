@@ -1,0 +1,12 @@
+{
+    "len_auto_link":null,
+    "dahana_auto_link":null,
+    "di_auto_link":null,
+    "pindad_auto_link":null,
+    "pal_auto_link":null,
+    "mailin_auto_link":null,
+    "mailout_auto_link":null,
+    "news_auto_link":null,
+    "status_pemakaian": ["Utilized", "Unutilized"],
+    "tipe_mesin": ["Cutting", "Bending", "Grinding", "Fraze", "Bor", "Bubut", "Moulding", "Forging", "Welding"]
+}
