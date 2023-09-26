@@ -1,0 +1,26 @@
+- Format Response JSON Sebaiknya diseragamkan
+	{
+		errorCode: 100,
+		message: "contoh Response Error
+	}
+
+- Route API belum best practice
+	- Belum berupa noun
+	- Route masih belum rapi
+
+- Method Logging sebaiknya dipisah
+	- Masih satu query dengan database
+
+- Insert ID masih bentrok dengan insert manual & merge
+	- Solusinya membuat id dari permintaan user
+
+LOG PENGERJAAAN
+- Primary Key adalah string
+- Tabel Foto dipisah
+- Primary Key asset one to many dengan tabel foto
+- Drop semua tabel saat auto update, insert ulang
+- Insert Asset, Update Asset, Delete Asset berinteraksi dengan spreadsheet 
+- Update Log setiap kali ter auto update
+- Perubahan yang dilakukan melalui spreadsheet tidak akan terdeteksi
+
+

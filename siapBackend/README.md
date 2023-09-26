@@ -1,4 +1,3 @@
-
 # Android API Documentation
 API Documentation for SIAP application to connect into SQL and Spreadsheet
 
@@ -24,22 +23,13 @@ Body:
 
 ## Table
 
-### /table/get - UPDATED
-Change Log"
-- Not Reccomended to fetch "Mail" table
-- Add new dollar rate at "Nilai Perolehan"
-
+### /table/get
 load all row from table name. 
 List of Table Name : Cek di database
 GET
 params : nama_tabel
 
-### /table/insert - UPDATED
-Change Log :
-- add "id" to json request body
-- no longer return "inserted_id"
-- return error response when error happen especially "Multiple Primary Key Defined"
-
+### /table/insert 
 Insert one row of asset to the destination table. ID will be generated automatically  
 POST  :
 Body :  
@@ -64,6 +54,13 @@ Body :
   tipe_mesin = ?,
   kategori_fungsi_mesin = ["bubut","cutting"],
   raw_material = ["bubut","cutting"]
+}
+```
+Response
+return id of inserted asset
+```
+{
+    inserted_id : ?,
 }
 ```
 
@@ -119,9 +116,3 @@ body:
     "user_edit": ?,
 }
 ```
-## Mail
-### /mail/get - UPDATED
-
-load all row from mail table (mail_In, mail_Out, news, len_kapabilitasmesinproduksi)
-GET
-params : nama_tabel
