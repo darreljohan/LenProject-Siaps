@@ -35,10 +35,10 @@ router.get('/approvalTable', async (req, res)=>{
 
 router.post('/requestAccount', (req, res)=>{
   const userList = addUserRequest(req.body).then((value) => {
-    res.status(200).send(value)
+    res.status(200).send({message: value})
   },
   (err) => {
-    res.status(400).send(err)
+    res.status(400).send({message: err})
     console.log(err)
   })
 })

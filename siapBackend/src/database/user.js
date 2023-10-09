@@ -3,7 +3,7 @@ import createConnection from "./database.js";
 export function addUserRequest (body) { // done
   return new Promise((resolve, reject) => {
     createConnection().then((db)=>{
-      db.query("INSERT INTO user_request (username, email, jabatan, password ) VALUES ('" + body.user + "', '" + body.mail + "', '" + body.jabatan + "', '" + body.pass + "')",
+      db.query("INSERT INTO `global_user-request` (username, email, jabatan, password ) VALUES ('" + body.user + "', '" + body.mail + "', '" + body.jabatan + "', '" + body.pass + "')",
         (err, rows, fields) => {
           if (err) {
             reject(err)

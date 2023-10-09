@@ -8,12 +8,55 @@ Cara menginstall
 4. Konfigurasi server di "/siapBackend/config.js"
 5. Jalankan "npm run api-service"
 
+## User
+---
+## POST /user/requestAccount
+Menambahkan pengguna kedalam pendaftaran  
+Contoh Request Body:  
+```json
+{
+    "user": "pengguna3",
+    "mail": "pengguna6", //Primary key
+    "jabatan": "pengguna",
+    "pass": "pengguna"
+}
+```
+Contoh Response Body - STATUS 200:
+```json
+{
+    "message": {
+        "fieldCount": 0,
+        "affectedRows": 1,
+        "insertId": 0,
+        "serverStatus": 2,
+        "warningCount": 0,
+        "message": "",
+        "protocol41": true,
+        "changedRows": 0
+    }
+}
+```
+Contoh Response Body - Status 400:  
+```json
+{
+    "message": {
+        "code": "ER_DUP_ENTRY",
+        "errno": 1062,
+        "sqlMessage": "Duplicate entry 'pengguna6' for key 'PRIMARY'",
+        "sqlState": "23000",
+        "index": 0,
+        "sql": "INSERT INTO `global_user-request` (username, email, jabatan, password ) VALUES ('pengguna3', 'pengguna6', 'pengguna', 'pengguna')"
+    }
+}
+```
+
 ## Assets
 ---
+### GET/assets/*/m
 ### GET /assets/*
-Mengembalikan daftar aset berdasarkan parameter
-Params : [ len, dahana, di, pal, pindad ]
-Contoh Route : GET /assets/len
+Mengembalikan daftar aset berdasarkan parameter  
+Params : [ len, dahana, di, pal, pindad ]  
+Contoh Route : GET /assets/len  
 Contoh Response :
 ```json
 [
@@ -73,10 +116,10 @@ Contoh Response :
 ```
 
 ### POST /assets/*
-Menambahkan aset kedalam database
-Params: [len, dahana, di, pal, pindad ]
-Contoh Route : POST /assets/len
-Contoh Request Body :
+Menambahkan aset kedalam database  
+Params: [len, dahana, di, pal, pindad ]  
+Contoh Route : POST /assets/len  
+Contoh Request Body :  
 ```json
 {
     "id":"id_30uddsdssdsdsdu", //Mandatory
@@ -124,7 +167,7 @@ Contoh Response Body - STATUS 200
     ]
 }
 ```
-Contoh Response Body - STATUS 400
+Contoh Response Body - STATUS 400  
 ```JSON
 {
     "message": {
@@ -152,7 +195,7 @@ Contoh Request Body :
     "raw_material":["bubut","cutting"] //Harus Array
 }
 ```
-Contoh Response Body - STATUS 200
+Contoh Response Body - STATUS 200  
 ```json
 {
     "message": [
@@ -189,7 +232,7 @@ Contoh Response Body - STATUS 200
     ]
 }
 ```
-Contoh Response Body - STATUS 400
+Contoh Response Body - STATUS 400  
 ```JSON
 {
     "message" ; "pesan error"
@@ -197,10 +240,10 @@ Contoh Response Body - STATUS 400
 ```
 
 ### POST /assets/photo/*
-Menambahkan foto pada aset berdasarkan ID
-Params: [len, dahana, di, pal, pindad]
-Contoh Route: POST /assets/photo/len
-Contoh Request Form Data :
+Menambahkan foto pada aset berdasarkan ID  
+Params: [len, dahana, di, pal, pindad]  
+Contoh Route: POST /assets/photo/len  
+Contoh Request Form Data :  
 ```JSON
 {
     "photo": "picture upload"
@@ -208,7 +251,7 @@ Contoh Request Form Data :
     "user_edit": 'username01', //Mandatory
 }
 ```
-Contoh Response Body - STATUS 200
+Contoh Response Body - STATUS 200  
 ```JSON
 {
     "message": [
@@ -235,7 +278,7 @@ Contoh Response Body - STATUS 200
     ]
 }
 ```
-Contoh Response Body - STATUS 400
+Contoh Response Body - STATUS 400  
 ```JSON
 {
     "message" ; "pesan error"
@@ -245,10 +288,10 @@ Contoh Response Body - STATUS 400
 ## Mail
 ---
 ### GET /mail/*
-Mengembalikan data mail in
-Params: [in, out]
-Contoh Route: GET /mail/in
-ContoH Response Body - STATUS 200
+Mengembalikan data mail in  
+Params: [in, out]  
+Contoh Route: GET /mail/in  
+ContoH Response Body - STATUS 200  
 ```JSON
 [
     {
@@ -280,7 +323,7 @@ ContoH Response Body - STATUS 200
     }
 ]
 ```
-Contoh Response Body - STATUS 400
+Contoh Response Body - STATUS 400  
 ```JSON
 {
     "message" ; "pesan error"
@@ -290,10 +333,10 @@ Contoh Response Body - STATUS 400
 ## Kapabilitas
 ---
 ### GET /kapabilitas/*
-Mengembalikan daftar aset berdasarkan parameter
-Params : [ len, dahana, di, pal, pindad ]
-Contoh Route : GET /kapabilitas/len
-Contoh Response :
+Mengembalikan daftar aset berdasarkan parameter  
+Params : [ len, dahana, di, pal, pindad ]  
+Contoh Route : GET /kapabilitas/len  
+Contoh Response :  
 ```json
 [
     {
@@ -337,7 +380,7 @@ Contoh Response :
     }
 ]
 ```
-Contoh Response Body - STATUS 400
+Contoh Response Body - STATUS 400  
 ```JSON
 {
     "message" ; "pesan error"
