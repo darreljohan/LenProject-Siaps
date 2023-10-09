@@ -1,14 +1,9 @@
 import mysql from 'mysql';
+import { databaseConfig } from '../config.js';
 
 export function createConnection(db){
     return new Promise((resolve, reject)=>{
-        const database = mysql.createConnection({
-            multipleStatements: true,
-            host: 'localhost',
-            user: 'root',
-            // password: 'your_password',
-            database: 'siap'
-        })
+        const database = mysql.createConnection(databaseConfig)
         database.connect((error) => {
             if (error) {
                 reject(error)

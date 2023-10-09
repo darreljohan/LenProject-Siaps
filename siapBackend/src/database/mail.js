@@ -3,7 +3,7 @@ import createConnection from "./database.js";
 export function getMail (body){
     return new Promise((resolve, reject) => {
         createConnection().then((db)=>{
-            connection.query('SELECT * FROM ' + body,
+            db.query(`SELECT * FROM `+"`"+body+"`",
             (err, rows, fields) => {
               if (err) {
                 reject(err)

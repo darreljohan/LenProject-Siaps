@@ -1,45 +1,78 @@
 import express from "express"
 
-import { deleteAssetPhoto, getTableAsset, insertAsset, updateAsset, updateAssetPhoto, upload } from "../database/asset.js"
+import { deleteAssetPhoto, getTableAsset, insertAsset, updateAsset, insertAssetPhoto, getTableAssetMobile } from "../database/asset.js"
+import { mobileAssetHandler, tableNameHandler, uploadAssetPhoto, uploadDocument} from "../handler/asset.js"
+import { baseUrl, serverPort } from "../config.js"
 
 var router = express.Router()
 
-router.get("/get", (req, res)=>{
-    getTableAsset(req.query.nama_tabel).then((value)=>{
-        res.status(200).send(JSON.parse(JSON.stringify(value)))
+router.get("/:nama_tabel", (req, res)=>{
+    getTableAsset(tableNameHandler(req.params.nama_tabel)).then((value)=>{
+        let temp = JSON.parse(JSON.stringify(value))
+        res.status(200).send(temp)
+    },
+    (err)=>{
+        res.status(400).send({message: err})
+    })
+})
+
+router.get("/:nama_tabel/m", (req, res)=>{
+    getTableAssetMobile(tableNameHandler(req.params.nama_tabel)).then((value)=>{
+        let temp = JSON.parse(JSON.stringify(value))
+        mobileAssetHandler(temp);
+        res.status(200).send(temp)
     },
     (err)=>{
         res.status(400).send(err)
     })
 })
 
-router.put("/update", (req, res)=>{
-    updateAsset(req.body).then((value)=>{
-        res.status(200).send(value)
+router.put("/:nama_tabel", (req, res)=>{
+    updateAsset(req.body, tableNameHandler(req.params.nama_tabel)).then((value)=>{
+        res.status(200).send({message: value})
     }, 
     (err)=>{
         res.status(400).send(err)
     })
 })
 
-router.post("/insert", (req, res)=>{
-    insertAsset(req.body).then((value)=>{
-        res.status(200).send(value[2][0])
+router.post("/:nama_tabel", (req, res)=>{
+    insertAsset(req.body, tableNameHandler(req.params.nama_tabel)).then((value)=>{
+        res.status(200).send({message: value})
     },
     (err)=>{
-        res.status(400).send(err)
+        res.status(400).send({message: err})
     })
 })
 
+
+router.post("/photo/:nama_tabel", uploadAssetPhoto.single('photo'), (req, res)=>{
+    if (!req.file.filename) {
+      res.status(400).send({message: {
+        status: false,
+        data: 'No File is selected.'
+      }})
+    } 
+    const filepath = baseUrl +":"+ serverPort +"/preview/fileStorage/photo/"+req.file.filename
+
+    insertAssetPhoto(req.body, tableNameHandler(req.params.nama_tabel), filepath).then((value)=>{
+        res.status(200).send({message: value})
+    }, (err)=>{
+        res.status(400).send({message: err})
+    })
+})
+
+
+/*
 router.post('/uploadPhoto', upload.single('photo'), (req, res)=>{
     const file = req.file.filename
     if (!file) {
-      res.status(400).send({
+      res.status(400).send({message: {
         status: false,
         data: 'No File is selected.'
-      })
+      }})
     }
-    const filepath = "localhost:5000/preview/asset/"+file
+    const filepath = "http://localhost:5000/preview/asset/"+file
     updateAssetPhoto(req.body, filepath).then((value)=>{
         res.status(200).send('success')
     }, (err)=>{
@@ -55,5 +88,6 @@ router.delete('/deletePhoto', (req, res)=>{
         res.status(400).send(err)
     ])
 })
+*/
 
 export { router }

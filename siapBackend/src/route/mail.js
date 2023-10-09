@@ -1,11 +1,12 @@
 import express from "express"
 import { deleteMail, getMail, insertMail, updateMail } from "../database/mail.js"
 import { getTableAsset } from "../database/asset.js"
+import { tableNameHandler } from "../handler/mail.js"
 
 var router = express.Router()
 
-router.get('/get', (req, res)=>{
-    getMail(req.query.nama_tabel).then((value)=>{
+router.get("/:nama_table", (req, res)=>{
+    getMail(tableNameHandler(req.params.nama_table)).then((value)=>{
         res.status(200).send(value)
     },
     (err)=>{

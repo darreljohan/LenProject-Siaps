@@ -1,7 +1,6 @@
 import { app } from "./app.js";
+import { serverPort as PORT } from "./config.js";
 
-const PORT = 5000;
-  
 app.listen(PORT,() => {
     console.log(`Running on PORT ${PORT}`);
 })

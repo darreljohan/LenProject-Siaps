@@ -1,20 +1,3 @@
 {
-    "len_auto_link":"1aVU683a-eFwCspfFMejkRgY1WZyZZ0oukF26rtc7IEU",
-    "len_auto_sheetName":null,
-    "dahana_auto_link":null,
-    "dahana_auto_sheetName":null,
-    "di_auto_link":null,
-    "di_auto_sheetName":null,
-    "pindad_auto_link":null,
-    "pindad_auto_sheetName":null,
-    "pal_auto_link":null,
-    "pal_auto_sheetName":null,
-    "mailin_auto_link":null,
-    "mailin_auto_sheetName":null,
-    "mailout_auto_link":null,
-    "mailout_auto_sheetName":null,
-    "news_auto_link":null,
-    "news_auto_sheetName":null,
-    "status_pemakaian": ["Utilized", "Unutilized"],
-    "tipe_mesin": ["Cutting", "Bending", "Grinding", "Fraze", "Bor", "Bubut", "Moulding", "Forging", "Welding"]
+    
 }
