@@ -52,7 +52,6 @@ Contoh Response Body - Status 400:
 
 ## Assets
 ---
-### GET/assets/*/m
 ### GET /assets/*
 Mengembalikan daftar aset berdasarkan parameter  
 Params : [ len, dahana, di, pal, pindad ]  
@@ -84,7 +83,7 @@ Contoh Response :
         "kartu_elektronik": null,
         "user_edit": null,
         "date_edit": null,
-        "gambar": "[\"http://localhost:3000/preview/fileStorage/photo/1696845961059-KTM Digital.jpg\"]"
+        "gambar": "[\"http://localhost:3000/preview/fileStorage/photo/1696845961059-KTM Digital.jpg\"]" //Mobile pakai gambar[0] aja
     },
     {
         "id": "id_45",
@@ -119,7 +118,7 @@ Contoh Response :
 Menambahkan aset kedalam database  
 Params: [len, dahana, di, pal, pindad ]  
 Contoh Route : POST /assets/len  
-Contoh Request Body :  
+Contoh Request Form Data :  
 ```json
 {
     "id":"id_30uddsdssdsdsdu", //Mandatory
@@ -127,7 +126,7 @@ Contoh Request Body :
     "user_edit":"admin", //Mandatory
     "kategori_fungsi_mesin":["bubut","cutting"],
     "raw_material":["bubut","cutting"],
-    "data_sheet": "https://google.com"
+    "data_sheet": "https://google.com" //Bisa juga dalam bentuk file
 }
 ```
 Contoh Response Body - STATUS 200
@@ -185,7 +184,7 @@ Contoh Response Body - STATUS 400
 Mengubah informasi aset yang telah ada
 Params: [len, dahana, di, pal, pindad ]
 Contoh Route : PUT /assets/len
-Contoh Request Body :
+Contoh Request Form Data :
 ```json
 {
     "nama_asset":"kalii ketiga ",
@@ -193,6 +192,7 @@ Contoh Request Body :
     "user_edit":"userinamee", //Mandatory
     "kategori_fungsi_mesin":["bubut","cutting","Tester"], //Harus Array
     "raw_material":["bubut","cutting"] //Harus Array
+    "data_sheet": "URL Picture" //Bisa dalam bentuk file
 }
 ```
 Contoh Response Body - STATUS 200  
@@ -377,6 +377,90 @@ Contoh Response :
         "humidity-besar": null,
         "pulsa-kecil": null,
         "pulsa-besar": null
+    }
+]
+```
+Contoh Response Body - STATUS 400  
+```JSON
+{
+    "message" ; "pesan error"
+}
+```
+## News
+---
+GET /news  
+mengembalikan daftar news  
+Contoh Response :  
+```json
+[
+    {
+        "id_surat": 1,
+        "nomor_surat": "100",
+        "link_file": "Darrel Johan_1303200056_Tether_Tugas1.pdf",
+        "nama_file": "Darrel Johan_1303200056_Tether_Tugas1.pdf",
+        "mime_type": "application/pdf",
+        "url": "https://drive.google.com/file/d/11gMw4T5hGwFH1g9Tm6FwyqM4fby4ztOR/view?usp=sharing",
+        "date_edit": null
+    },
+    {
+        "id_surat": 2,
+        "nomor_surat": "200",
+        "link_file": "Dokumen tanpa judul",
+        "nama_file": "Dokumen tanpa judul",
+        "mime_type": "application/vnd.google-apps.document",
+        "url": "https://docs.google.com/document/d/19NfR58VM_FuY5G1_2pXkUHPy58Ec4hK-7gSOLfLbkD4/edit?usp=sharing",
+        "date_edit": null
+    },
+    {
+        "id_surat": 3,
+        "nomor_surat": "300",
+        "link_file": "flow FL.xlsx",
+        "nama_file": "flow FL.xlsx",
+        "mime_type": "application/vnd.ms-excel",
+        "url": "https://docs.google.com/spreadsheets/d/1I_xbLkuMGiwMDPugQJFZ9LU6RIkf40Y1/edit?usp=sharing&ouid=10265",
+        "date_edit": null
+    }
+]
+```
+Contoh Response Body - STATUS 400  
+```JSON
+{
+    "message" ; "pesan error"
+}
+```
+## Log
+---
+GET /log
+mengembalikan log
+Contoh Respopnse :
+```json
+[
+    {
+        "id_surat": 1,
+        "nomor_surat": "100",
+        "link_file": "Darrel Johan_1303200056_Tether_Tugas1.pdf",
+        "nama_file": "Darrel Johan_1303200056_Tether_Tugas1.pdf",
+        "mime_type": "application/pdf",
+        "url": "https://drive.google.com/file/d/11gMw4T5hGwFH1g9Tm6FwyqM4fby4ztOR/view?usp=sharing",
+        "date_edit": null
+    },
+    {
+        "id_surat": 2,
+        "nomor_surat": "200",
+        "link_file": "Dokumen tanpa judul",
+        "nama_file": "Dokumen tanpa judul",
+        "mime_type": "application/vnd.google-apps.document",
+        "url": "https://docs.google.com/document/d/19NfR58VM_FuY5G1_2pXkUHPy58Ec4hK-7gSOLfLbkD4/edit?usp=sharing",
+        "date_edit": null
+    },
+    {
+        "id_surat": 3,
+        "nomor_surat": "300",
+        "link_file": "flow FL.xlsx",
+        "nama_file": "flow FL.xlsx",
+        "mime_type": "application/vnd.ms-excel",
+        "url": "https://docs.google.com/spreadsheets/d/1I_xbLkuMGiwMDPugQJFZ9LU6RIkf40Y1/edit?usp=sharing&ouid=10265",
+        "date_edit": null
     }
 ]
 ```

@@ -19,7 +19,7 @@ export function getQuery(nama_tabel){
     return {query: query}
 }
 
-export function insertQuery(body, nama_tabel){
+export function insertQuery(body, nama_tabel, dataSheet, kartuMesin){
     const insertQuery = `INSERT INTO ` + nama_tabel + ` (
     id,
     nama_asset, 
@@ -58,11 +58,11 @@ export function insertQuery(body, nama_tabel){
         body.lokasi,
         body.merk,
         body.tipe_mesin,
-        JSON.stringify(body.kategori_fungsi_mesin),
-        JSON.stringify(body.raw_material),
+        body.kategori_fungsi_mesin,
+        body.raw_material,
         body.data_sheet,
-        body.kartu_mesin,
-        body.kartu_elektronik
+        kartuMesin,
+        dataSheet
     ]
 
     return {query: insertQuery, value: values}
@@ -83,7 +83,7 @@ export function insertLog(body, nama_tabel, date_edit){
     return {query: query, value: values}
 }
 
-export function updateQuery(body, nama_tabel){
+export function updateQuery(body, nama_tabel, dataSheet, kartuMesin){
     let query =  `UPDATE `+ nama_tabel + `    
     SET
     nama_asset = ?,
@@ -101,7 +101,9 @@ export function updateQuery(body, nama_tabel){
     merk = ?,
     tipe_mesin = ?,
     kategori_fungsi_mesin = ?,
-    raw_material = ?
+    raw_material = ?,
+    data_sheet = ?,
+    kartu_mesin = ?
     WHERE id = ?;`
 
     const updateValues = [
@@ -121,6 +123,8 @@ export function updateQuery(body, nama_tabel){
         body.tipe_mesin,
         JSON.stringify(body.kategori_fungsi_mesin),
         JSON.stringify(body.raw_material),
+        dataSheet,
+        kartuMesin,
         body.id,
     ]
   

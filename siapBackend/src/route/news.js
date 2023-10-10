@@ -1,9 +1,10 @@
 import express from "express"
-import { getLog } from "../database/log.js"
+import { getNews } from "../database/news.js"
+
 var router = express.Router()
 
-router.get('', (req,res)=>{
-    getLog().then((value)=>{
+router.get("", (req, res)=>{
+    getNews().then((value)=>{
         res.status(200).send(value.reverse())
     },
     (err)=>{

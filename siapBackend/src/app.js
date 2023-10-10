@@ -6,6 +6,7 @@ import { router as mailRouter } from './route/mail.js'
 import { router as logRouter } from './route/log.js'
 import { router as previewRouter } from './route/preview.js'
 import { router as kapabilitasRouter } from './route/kapabilitas.js'
+import { router as newsRouter} from './route/news.js'
  
 
 const app = express()
@@ -18,6 +19,7 @@ app.use('/mail', mailRouter)
 app.use('/kapabilitas', kapabilitasRouter)
 app.use('/log', logRouter)
 app.use('/preview', previewRouter)
+app.use('/news', newsRouter)
 
 
 export {app};

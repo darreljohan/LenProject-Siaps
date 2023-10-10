@@ -1,7 +1,7 @@
 import express from "express"
 
 import { deleteAssetPhoto, getTableAsset, insertAsset, updateAsset, insertAssetPhoto, getTableAssetMobile } from "../database/asset.js"
-import { mobileAssetHandler, tableNameHandler, uploadAssetPhoto, uploadDocument} from "../handler/asset.js"
+import { mobileAssetHandler, tableNameHandler, uploadAssetPhoto, uploadDocument, uploadKartuMesinDataSheetHandler, KartuMesinDataSheetValueHandler} from "../handler/asset.js"
 import { baseUrl, serverPort } from "../config.js"
 
 var router = express.Router()
@@ -27,8 +27,9 @@ router.get("/:nama_tabel/m", (req, res)=>{
     })
 })
 
-router.put("/:nama_tabel", (req, res)=>{
-    updateAsset(req.body, tableNameHandler(req.params.nama_tabel)).then((value)=>{
+router.put("/:nama_tabel", uploadKartuMesinDataSheetHandler, (req, res)=>{
+    let valueKartuData = KartuMesinDataSheetValueHandler(req)
+    updateAsset(req.body, tableNameHandler(req.params.nama_tabel), valueKartuData.valueData, valueKartuData.valueKartu).then((value)=>{
         res.status(200).send({message: value})
     }, 
     (err)=>{
@@ -36,8 +37,10 @@ router.put("/:nama_tabel", (req, res)=>{
     })
 })
 
-router.post("/:nama_tabel", (req, res)=>{
-    insertAsset(req.body, tableNameHandler(req.params.nama_tabel)).then((value)=>{
+router.post("/:nama_tabel", uploadKartuMesinDataSheetHandler, (req, res)=>{
+   let valueKartuData = KartuMesinDataSheetValueHandler(req)
+
+    insertAsset(req.body, tableNameHandler(req.params.nama_tabel), valueKartuData.valueData, valueKartuData.valueKartu).then((value)=>{
         res.status(200).send({message: value})
     },
     (err)=>{

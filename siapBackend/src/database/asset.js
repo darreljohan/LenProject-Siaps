@@ -44,12 +44,12 @@ export function getTableAssetMobile(params){ //Pending
   })
 }
 
-export function updateAsset(body, nama_tabel){
+export function updateAsset(body, nama_tabel, dataSheet, kartuMesin){
     return new Promise((resolve, reject) => {
         createConnection().then((db)=>{
 
             const currentTimestamp = new Date().toISOString()
-            let update = updateQuery(body, nama_tabel)
+            let update = updateQuery(body, nama_tabel, dataSheet, kartuMesin)
             let log = updateAssetLogQuery(body, currentTimestamp)
             let join = updateLog(body, nama_tabel, currentTimestamp)
 
@@ -68,12 +68,12 @@ export function updateAsset(body, nama_tabel){
     })
 }
 
-export function insertAsset (body, nama_tabel){
+export function insertAsset (body, nama_tabel, kartuMesin, dataSheet){
     return new Promise((resolve, reject) => {
         const currentTimestamp = new Date().toISOString()
         createConnection().then((db)=>{
 
-            let insert = insertQuery(body, nama_tabel)
+            let insert = insertQuery(body, nama_tabel,kartuMesin, dataSheet)
             let log = insertAssetLogQuery(body, currentTimestamp)
             let join = insertLog(body, nama_tabel, currentTimestamp)
 

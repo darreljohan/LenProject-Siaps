@@ -10,7 +10,7 @@ router.get("/:nama_table", (req, res)=>{
         res.status(200).send(value)
     },
     (err)=>{
-        res.status(400).send(err)
+        res.status(400).send({message: err})
     })
 })
 
