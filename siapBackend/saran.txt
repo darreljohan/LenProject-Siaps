@@ -23,4 +23,7 @@ LOG PENGERJAAAN
 - Update Log setiap kali ter auto update
 - Perubahan yang dilakukan melalui spreadsheet tidak akan terdeteksi
 
-
+Tutor install
+- Port Forwading
+- Firewall Rule port
+- Node version

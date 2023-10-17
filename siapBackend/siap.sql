@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 09, 2023 at 12:33 PM
+-- Generation Time: Oct 17, 2023 at 06:35 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.0.28
 
@@ -1424,7 +1424,13 @@ INSERT INTO `global_log` (`user_edit`, `keterangan`, `date_edit`) VALUES
 ('id49', 'usermee mengupdate data kalii ketiga  pada tabel undefined', '2023-10-06 01:59:44'),
 ('id49', 'usermee mengupdate data kalii ketiga  pada tabel undefined', '2023-10-06 02:00:12'),
 ('username01', 'username01 menambahkan foto pada undefined pada tabel len_assets', '2023-10-06 07:01:49'),
-('darrelTesting', 'darrelTesting menambahkan foto pada undefined pada tabel undefined', '2023-10-09 03:06:01');
+('darrelTesting', 'darrelTesting menambahkan foto pada undefined pada tabel undefined', '2023-10-09 03:06:01'),
+('darrelCoba', 'darrelCoba menambahkan data percobaanUploadKartuMesin pada tabel undefined', '2023-10-10 04:36:10'),
+('darrelCoba', 'darrelCoba menambahkan data percobaanUploadKartuMesin pada tabel undefined', '2023-10-10 04:39:05'),
+('darrelCoba', 'darrelCoba menambahkan data percobaanUploadKartuMesin pada tabel undefined', '2023-10-10 04:41:52'),
+('41', 'darrelTester mengupdate data \"updateCobaDataSheet pada tabel undefined', '2023-10-10 04:45:43'),
+('darrelCoba', 'darrelCoba menambahkan data percobaanUploadKartuMesin pada tabel undefined', '2023-10-10 21:59:05'),
+('darrelCoba', 'darrelCoba menambahkan data percobaanUploadKartuMesin pada tabel undefined', '2023-10-10 21:59:14');
 
 -- --------------------------------------------------------
 
@@ -1438,7 +1444,7 @@ CREATE TABLE `global_mail-in` (
   `link_file` varchar(100) DEFAULT NULL,
   `nama_file` varchar(100) DEFAULT NULL,
   `mime_type` varchar(100) DEFAULT NULL,
-  `url` varchar(100) DEFAULT NULL,
+  `url` varchar(500) DEFAULT NULL,
   `date_edit` timestamp(6) NULL DEFAULT current_timestamp(6)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -1463,7 +1469,7 @@ CREATE TABLE `global_mail-out` (
   `link_file` varchar(100) DEFAULT NULL,
   `nama_file` varchar(100) DEFAULT NULL,
   `mime_type` varchar(100) DEFAULT NULL,
-  `url` varchar(50) DEFAULT NULL,
+  `url` varchar(500) DEFAULT NULL,
   `date_edit` timestamp(6) NULL DEFAULT current_timestamp(6)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -1488,7 +1494,7 @@ CREATE TABLE `global_news` (
   `link_file` varchar(100) DEFAULT NULL,
   `nama_file` varchar(100) DEFAULT NULL,
   `mime_type` varchar(100) DEFAULT NULL,
-  `url` varchar(100) DEFAULT NULL,
+  `url` varchar(500) DEFAULT NULL,
   `date_edit` timestamp(6) NULL DEFAULT current_timestamp(6)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -1522,6 +1528,8 @@ CREATE TABLE `global_user-request` (
 INSERT INTO `global_user-request` (`username`, `email`, `jabatan`, `password`, `user_date_created`) VALUES
 ('pengguna1', 'pengguna2', 'pengguna', 'pengguna', '2023-09-18 08:47:03'),
 ('pengguna1', 'pengguna3', 'pengguna', 'pengguna', '2023-09-18 09:17:17'),
+('pengguna3', 'pengguna6', 'pengguna', 'pengguna', '2023-10-09 11:09:34'),
+('pengguna3', 'pengguna7', 'pengguna', 'pengguna', '2023-10-09 11:13:32'),
 ('tester01', 'tester01@email.com', 'jabatan1', '12345', '2023-09-08 08:18:59'),
 ('undefined', 'undefined', 'jabatan1', 'undefined', '2023-09-08 08:18:59'),
 ('userbaru1', 'userbaru1@email.com', 'Admin fesbuk', '12345678', '2023-09-08 08:18:59');
@@ -1599,7 +1607,7 @@ INSERT INTO `len_assets` (`id`, `nama_asset`, `merk`, `tipe_mesin`, `kategori_fu
 ('30', 'kalii ketiga ', NULL, NULL, '[\"bubut\",\"cutting\",\"Tester\"]', '[\"bubut\",\"cutting\"]', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 ('33', 'kamyuu u nya 2', NULL, NULL, NULL, NULL, 'kita', 'sehat', 'hebat', 50, '0000', 5, 'sumbangan', 3, NULL, 3, 'tahun depan', 'jepang', NULL, NULL, NULL),
 ('4', 'Mesin Las Listrik Hitachi SS 5', NULL, NULL, NULL, NULL, '', 'Baik Tidak dipakai', 'Unutilized', 0, '0000', 0, 'Investasi Perusahaan Sendiri', 0, NULL, 1, '', '08. OpProd/Gd.B Lt.1', NULL, NULL, NULL),
-('41', 'kalii ketiga ', NULL, NULL, '[\"bubut\",\"cutting\",\"Tester\"]', '[\"bubut\",\"cutting\"]', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+('41', '\"updateCobaDataSheet', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'http://localhost:3000/preview/fileStorage/data_sheet&kartu_mesin/1696938343364-Absen DQlab 1.jpg', '\"linkGoogol\"', NULL),
 ('42', 'kitaa bersima', NULL, NULL, '[\"bubut\",\"cutting\"]', '[\"bubut\",\"cutting\"]', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 ('43', 'ada yang baru nih', NULL, NULL, '[\"bubut\",\"cutting\"]', '[\"bubut\",\"cutting\"]', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 ('5', 'Mesin Potong/Shearing INOUE / F 250-3', NULL, NULL, NULL, NULL, '', 'Baik Tidak dipakai', 'Unutilized', 0, '1981', 0, 'Investasi Perusahaan Sendiri', 0, NULL, 1, '', '08. OpProd/Gd.O', NULL, NULL, NULL),
@@ -1607,9 +1615,8 @@ INSERT INTO `len_assets` (`id`, `nama_asset`, `merk`, `tipe_mesin`, `kategori_fu
 ('7', 'Mesin Gergaji/Hack Saw Machine', NULL, NULL, NULL, NULL, '', 'Baik Tidak dipakai', 'Unutilized', 0, '2012', 0, 'Investasi Perusahaan Sendiri', 266750, NULL, 1, '', '08. OpProd/Gd.O', NULL, NULL, NULL),
 ('8', 'Air Cooled MIG Welding Guns', NULL, NULL, NULL, NULL, '', 'Baik Tidak dipakai', 'Unutilized', 0, '2008', 0, 'Investasi Perusahaan Sendiri', 2350000, NULL, 1, '', '08. OpProd/Gd.O/R.Catkecil', NULL, NULL, NULL),
 ('9', 'Air Cooled MIG Welding Guns', NULL, NULL, NULL, NULL, '', 'Baik Tidak dipakai', 'Unutilized', 0, '2008', 0, 'Investasi Perusahaan Sendiri', 2350000, NULL, 1, '', '08. OpProd/Gd.O/R.Catkecil', NULL, NULL, NULL),
-('id45', 'kalii ketiga ', NULL, NULL, '[\"bubut\",\"cutting\",\"Tester\"]', '[\"bubut\", \"cutting\", \"new_material\"]', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'https://google.com', NULL, NULL),
-('id46', 'ada yang baru nih', NULL, NULL, '[\"bubut\",\"cutting\"]', '[\"bubut\",\"cutting\"]', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'https://google.com', NULL, NULL),
-('id_45', 'kalii ketiga ', NULL, NULL, '[\"bubut\",\"cutting\",\"Tester\"]', '[\"bubut\",\"cutting\"]', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'https://google.com', NULL, NULL);
+('id36725', 'percobaanUploadKartuMesin', NULL, NULL, '[\"bubut\", \"cutting\", \"kategori\"]', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'http://localhost:3000/preview/fileStorage/data_sheet&kartu_mesin/1697000345969-1303200056.pdf'),
+('id367675', 'percobaanUploadKartuMesin', NULL, NULL, '[\"bubut\", \"cutting\", \"kategori\"]', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'http://localhost:3000/preview/fileStorage/data_sheet&kartu_mesin/1697000354906-1303200056.pdf');
 
 -- --------------------------------------------------------
 
@@ -1628,6 +1635,10 @@ CREATE TABLE `len_assets_log` (
 --
 
 INSERT INTO `len_assets_log` (`id`, `user_edit`, `date_edit`) VALUES
+('id36723', 'darrelCoba', '2023-10-10 04:39:05'),
+('id36725', 'darrelCoba', '2023-10-10 04:41:52'),
+('id36746', 'darrelCoba', '2023-10-10 04:36:10'),
+('id367675', 'darrelCoba', '2023-10-10 21:59:14'),
 ('id45', 'usermee', '2023-10-06 01:25:57'),
 ('id46', 'admin', '2023-10-06 01:45:33'),
 ('id_45', 'saya', '2023-10-05 13:38:48');
