@@ -9,7 +9,7 @@ export const databaseConfig = {
 
 //configure your published url and server port here
 export const baseUrl = "http://localhost"
-export const serverPort = 3000
+export const serverPort = 5001
 
 
 

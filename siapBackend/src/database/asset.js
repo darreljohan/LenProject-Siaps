@@ -48,7 +48,7 @@ export function updateAsset(body, nama_tabel, dataSheet, kartuMesin){
     return new Promise((resolve, reject) => {
         createConnection().then((db)=>{
 
-            const currentTimestamp = new Date().toISOString()
+            const currentTimestamp = new Date().toISOString().slice(0, 19).replace('T', ' ');
             let update = updateQuery(body, nama_tabel, dataSheet, kartuMesin)
             let log = updateAssetLogQuery(body, currentTimestamp)
             let join = updateLog(body, nama_tabel, currentTimestamp)
@@ -70,7 +70,7 @@ export function updateAsset(body, nama_tabel, dataSheet, kartuMesin){
 
 export function insertAsset (body, nama_tabel, kartuMesin, dataSheet){
     return new Promise((resolve, reject) => {
-        const currentTimestamp = new Date().toISOString()
+        const currentTimestamp = new Date().toISOString().slice(0, 19).replace('T', ' ');
         createConnection().then((db)=>{
 
             let insert = insertQuery(body, nama_tabel,kartuMesin, dataSheet)
@@ -97,7 +97,7 @@ export function insertAssetPhoto(body, nama_tabel, linkFile){
   return new Promise((resolve, reject) => {
     createConnection().then((db)=>{
 
-      const currentTimestamp = new Date().toISOString()
+      const currentTimestamp = new Date().toISOString().slice(0, 19).replace('T', ' ');
       const insert = insertPhoto(body, nama_tabel, linkFile)
       const log = insertPhotoLogQuery(body, currentTimestamp)
 
@@ -121,7 +121,7 @@ export function deleteAssetPhoto (body){
     createConnection().then((db)=>{
       const id = body.id
       const updateData = body
-      const currentTimestamp = new Date().toISOString()
+      const currentTimestamp = new Date().toISOString().slice(0, 19).replace('T', ' ');
   
       const updateQuery = `
       UPDATE ` + body.nama_tabel + ` 
