@@ -1,6 +1,7 @@
 import createConnection from "./database.js";
 import { getQuery, updateQuery, insertQuery, insertLog, updateLog, insertPhoto, getMobile } from "./query/asset.js";
 import { insertAssetLogQuery, updateAssetLogQuery, insertPhotoLogQuery } from "./query/log.js";
+import { getTimeNow } from "../config.js";
 
 export function getTableAsset(params){
     return new Promise((resolve, reject) => {
@@ -48,9 +49,9 @@ export function updateAsset(body, nama_tabel, dataSheet, kartuMesin){
     return new Promise((resolve, reject) => {
         createConnection().then((db)=>{
 
-            const currentTimestamp = new Date().toISOString().slice(0, 19).replace('T', ' ');
+            const currentTimestamp = getTimeNow();
             let update = updateQuery(body, nama_tabel, dataSheet, kartuMesin)
-            let log = updateAssetLogQuery(body, currentTimestamp)
+            let log = updateAssetLogQuery(body, nama_tabel, currentTimestamp)
             let join = updateLog(body, nama_tabel, currentTimestamp)
 
             db.query(update.query+log.query+join.query, [...update.value, ...log.value, ...join.value],
@@ -70,11 +71,11 @@ export function updateAsset(body, nama_tabel, dataSheet, kartuMesin){
 
 export function insertAsset (body, nama_tabel, kartuMesin, dataSheet){
     return new Promise((resolve, reject) => {
-        const currentTimestamp = new Date().toISOString().slice(0, 19).replace('T', ' ');
+        const currentTimestamp = getTimeNow();
         createConnection().then((db)=>{
 
             let insert = insertQuery(body, nama_tabel,kartuMesin, dataSheet)
-            let log = insertAssetLogQuery(body, currentTimestamp)
+            let log = insertAssetLogQuery(body, nama_tabel, currentTimestamp)
             let join = insertLog(body, nama_tabel, currentTimestamp)
 
             db.query(insert.query+log.query+join.query, [...insert.value, ...log.value, ...join.value],
@@ -97,9 +98,9 @@ export function insertAssetPhoto(body, nama_tabel, linkFile){
   return new Promise((resolve, reject) => {
     createConnection().then((db)=>{
 
-      const currentTimestamp = new Date().toISOString().slice(0, 19).replace('T', ' ');
+      const currentTimestamp = getTimeNow();
       const insert = insertPhoto(body, nama_tabel, linkFile)
-      const log = insertPhotoLogQuery(body, currentTimestamp)
+      const log = insertPhotoLogQuery(body, nama_tabel, currentTimestamp)
 
       db.query(insert.query + log.query, [...insert.value, ...log.value],
         (err, rows, fields) => {
@@ -121,7 +122,7 @@ export function deleteAssetPhoto (body){
     createConnection().then((db)=>{
       const id = body.id
       const updateData = body
-      const currentTimestamp = new Date().toISOString().slice(0, 19).replace('T', ' ');
+      const currentTimestamp = getTimeNow();
   
       const updateQuery = `
       UPDATE ` + body.nama_tabel + ` 

@@ -27,3 +27,4 @@ Tutor install
 - Port Forwading
 - Firewall Rule port
 - Node version
+- MYSQL now() value

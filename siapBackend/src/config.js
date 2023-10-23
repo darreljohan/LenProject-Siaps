@@ -11,5 +11,9 @@ export const databaseConfig = {
 export const baseUrl = "http://localhost"
 export const serverPort = 5001
 
+export function getTimeNow(){
+    return Date.now()
+}
+
 
 
