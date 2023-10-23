@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 17, 2023 at 06:35 AM
+-- Generation Time: Oct 23, 2023 at 02:58 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.0.28
 
@@ -1041,7 +1041,7 @@ CREATE TABLE `dahana_assets_log` (
 
 CREATE TABLE `dahana_assets_photo` (
   `id` varchar(100) NOT NULL,
-  `gambar` varchar(500) DEFAULT NULL
+  `gambar` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL CHECK (json_valid(`gambar`))
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -1297,7 +1297,7 @@ CREATE TABLE `di_assets_log` (
 
 CREATE TABLE `di_assets_photo` (
   `id` varchar(100) NOT NULL,
-  `gambar` varchar(500) DEFAULT NULL
+  `gambar` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL CHECK (json_valid(`gambar`))
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -1363,74 +1363,8 @@ CREATE TABLE `global_log` (
 --
 
 INSERT INTO `global_log` (`user_edit`, `keterangan`, `date_edit`) VALUES
-('1', 'Mengupdate data 30', '2023-09-10 01:44:30'),
-('1', 'Mengupdate data 30 pada tabel undefined', '2023-09-10 01:46:12'),
-('1', 'Mengupdate data 30 pada tabel undefined', '2023-09-10 01:46:38'),
-('1', 'Mengupdate data 30 pada tabel len_assets', '2023-09-10 01:46:59'),
-('1', 'Mengupdate data 30 pada tabel len_assets', '2023-09-10 03:02:43'),
-('1', 'Mengupdate data 30 pada tabel len_assets', '2023-09-10 03:05:40'),
-('1', 'Menambahkan data kitaa bersama pada tabel len_assets', '2023-09-10 03:17:40'),
-('admin', 'Menambahkan data kitaa bersama pada tabel len_assets', '2023-09-10 03:22:08'),
-('username', 'Mengupdate data 30 pada tabel len_assets', '2023-09-10 03:23:20'),
-('username', 'Mengupdate data 30 pada tabel len_assets', '2023-09-10 08:27:13'),
-('username', 'Menambahkan foto pada asset 30 pada tabel len_assets', '2023-09-10 08:28:01'),
-('username', 'Menghapus foto pada asset 30 pada tabel len_assets', '2023-09-10 09:12:13'),
-('admin', 'Menambahkan data kitaa bersima pada tabel len_assets', '2023-09-10 09:52:05'),
-('admin', 'Menambahkan data kitaa bersima pada tabel len_assets', '2023-09-10 10:02:06'),
-('admin', 'Menambahkan data kitaa bersima pada tabel len_assets', '2023-09-10 10:02:26'),
-('admin', 'Menambahkan data kitaa bersima pada tabel len_assets', '2023-09-10 10:05:02'),
-('admin', 'Menambahkan data kitaa bersima pada tabel len_assets', '2023-09-10 10:05:36'),
-('admin', 'Menambahkan data kitaa bersima pada tabel len_assets', '2023-09-10 10:06:57'),
-('admin', 'Menambahkan data kitaa bersima pada tabel len_assets', '2023-09-10 10:07:56'),
-('username', 'Mengupdate data 30 pada tabel len_assets', '2023-09-18 03:40:09'),
-('admin', 'Menambahkan data ada yang baru nih pada tabel len_assets', '2023-09-18 03:45:55'),
-('username01', 'Menambahkan foto pada asset 33 pada tabel len_assets', '2023-09-19 05:27:48'),
-('username01', 'Menambahkan foto pada asset 33 pada tabel len_assets', '2023-09-19 05:35:29'),
-('username01', 'Menambahkan foto pada asset 33 pada tabel len_assets', '2023-09-26 05:53:04'),
-('username01', 'Menambahkan foto pada asset 33 pada tabel len_assets', '2023-09-26 05:54:09'),
-('username01', 'Menambahkan foto pada asset 33 pada tabel len_assets', '2023-09-26 05:55:10'),
-('username01', 'Menambahkan foto pada asset 33 pada tabel len_assets', '2023-09-26 06:21:08'),
-('username01', 'Menambahkan foto pada asset 41 pada tabel len_assets', '2023-09-26 06:25:58'),
-('30', '30 mengupdate data kalii ketiga  pada tabel len_assets', '2023-10-05 04:57:39'),
-('id_bawru', 'admin menambahkan data ada yang baru nih pada tabel len_assets', '2023-10-05 05:28:24'),
-('userinamee', 'userinamee mengupdate data kalii ketiga  pada tabel undefined', '2023-10-05 05:37:46'),
-('admin', 'admin menambahkan data ada yang baru nih pada tabel len_assets', '2023-10-05 05:40:13'),
-('admin', 'admin menambahkan data ada yang baru nih pada tabel len_assets', '2023-10-05 06:09:52'),
-('admin', 'admin menambahkan data ada yang baru nih pada tabel len_assets', '2023-10-05 06:10:54'),
-('admin', 'admin menambahkan data ada yang baru nih pada tabel len_assets', '2023-10-05 06:11:33'),
-('41', 'userinamee mengupdate data kalii ketiga  pada tabel undefined', '2023-10-05 06:18:31'),
-('admin', 'admin menambahkan data ada yang baru nih pada tabel len_assets', '2023-10-05 06:24:20'),
-('id_45', 'userinamee mengupdate data kalii ketiga  pada tabel undefined', '2023-10-05 06:29:41'),
-('id_45', 'userinamee mengupdate data kalii ketiga  pada tabel undefined', '2023-10-05 06:30:41'),
-('admin', 'admin menambahkan data ada yang baru nih pada tabel len_assets', '2023-10-05 06:31:12'),
-('id_45', 'userinamee mengupdate data kalii ketiga  pada tabel undefined', '2023-10-05 06:31:32'),
-('id_45', 'userinamee mengupdate data kalii ketiga  pada tabel undefined', '2023-10-05 06:35:42'),
-('id_45', 'userinamee mengupdate data kalii ketiga  pada tabel undefined', '2023-10-05 06:41:09'),
-('admin', 'admin menambahkan data ada yang baru nih pada tabel len_assets', '2023-10-06 00:54:37'),
-('id45', 'userinamee mengupdate data kalii ketiga  pada tabel undefined', '2023-10-06 00:55:31'),
-('id45', 'userinamee mengupdate data kalii ketiga  pada tabel undefined', '2023-10-06 00:59:37'),
-('id45', 'userinamee mengupdate data kalii ketiga  pada tabel undefined', '2023-10-06 01:01:34'),
-('id45', 'userinamee mengupdate data kalii ketiga  pada tabel undefined', '2023-10-06 01:03:10'),
-('id45', 'userinamee mengupdate data kalii ketiga  pada tabel undefined', '2023-10-06 01:08:17'),
-('id45', 'userinamee mengupdate data kalii ketiga  pada tabel undefined', '2023-10-06 01:13:20'),
-('id45', 'usermee mengupdate data kalii ketiga  pada tabel undefined', '2023-10-06 01:19:11'),
-('id45', 'usermee mengupdate data kalii ketiga  pada tabel undefined', '2023-10-06 01:19:34'),
-('id45', 'usermee mengupdate data kalii ketiga  pada tabel undefined', '2023-10-06 01:25:57'),
-('admin', 'admin menambahkan data ada yang baru nih pada tabel len_assets', '2023-10-06 01:45:33'),
-('id48', 'usermee mengupdate data kalii ketiga  pada tabel undefined', '2023-10-06 01:46:48'),
-('id49', 'usermee mengupdate data kalii ketiga  pada tabel undefined', '2023-10-06 01:54:47'),
-('id49', 'usermee mengupdate data kalii ketiga  pada tabel undefined', '2023-10-06 01:56:02'),
-('id49', 'usermee mengupdate data kalii ketiga  pada tabel undefined', '2023-10-06 01:58:03'),
-('id49', 'usermee mengupdate data kalii ketiga  pada tabel undefined', '2023-10-06 01:59:44'),
-('id49', 'usermee mengupdate data kalii ketiga  pada tabel undefined', '2023-10-06 02:00:12'),
-('username01', 'username01 menambahkan foto pada undefined pada tabel len_assets', '2023-10-06 07:01:49'),
-('darrelTesting', 'darrelTesting menambahkan foto pada undefined pada tabel undefined', '2023-10-09 03:06:01'),
-('darrelCoba', 'darrelCoba menambahkan data percobaanUploadKartuMesin pada tabel undefined', '2023-10-10 04:36:10'),
-('darrelCoba', 'darrelCoba menambahkan data percobaanUploadKartuMesin pada tabel undefined', '2023-10-10 04:39:05'),
-('darrelCoba', 'darrelCoba menambahkan data percobaanUploadKartuMesin pada tabel undefined', '2023-10-10 04:41:52'),
-('41', 'darrelTester mengupdate data \"updateCobaDataSheet pada tabel undefined', '2023-10-10 04:45:43'),
-('darrelCoba', 'darrelCoba menambahkan data percobaanUploadKartuMesin pada tabel undefined', '2023-10-10 21:59:05'),
-('darrelCoba', 'darrelCoba menambahkan data percobaanUploadKartuMesin pada tabel undefined', '2023-10-10 21:59:14');
+('idbaru30', 'darreladmin mengupdate data DATE_test pada tabel len_assets', '2023-10-23 12:15:00'),
+('idbaru30', 'Date_Test mengupdate data DATE_test pada tabel len_assets', '2023-10-23 12:15:30');
 
 -- --------------------------------------------------------
 
@@ -1604,19 +1538,12 @@ INSERT INTO `len_assets` (`id`, `nama_asset`, `merk`, `tipe_mesin`, `kategori_fu
 ('2', 'Mesin Bor Frais', NULL, NULL, NULL, NULL, '', 'Baik Tidak dipakai', 'Unutilized', 0, '0000', 0, 'Investasi Perusahaan Sendiri', 0, NULL, 1, '', '08. OpProd/Gd.O', NULL, NULL, NULL),
 ('20', 'Bandsaw Machine Mega BS400SA', NULL, NULL, NULL, NULL, '', 'Baik Tidak dipakai', 'Unutilized', 0, '2018', 0, 'Investasi Perusahaan Sendiri', 260000000, NULL, 147333333, '', '08. OpProd/Gd.B Lt.1', NULL, NULL, NULL),
 ('3', 'Mesin Gerinda Duduk', NULL, NULL, NULL, NULL, '', 'Baik Tidak dipakai', 'Unutilized', 0, '0000', 0, 'Investasi Perusahaan Sendiri', 0, NULL, 1, '', '08. OpProd/Gd.B Lt.1', NULL, NULL, NULL),
-('30', 'kalii ketiga ', NULL, NULL, '[\"bubut\",\"cutting\",\"Tester\"]', '[\"bubut\",\"cutting\"]', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-('33', 'kamyuu u nya 2', NULL, NULL, NULL, NULL, 'kita', 'sehat', 'hebat', 50, '0000', 5, 'sumbangan', 3, NULL, 3, 'tahun depan', 'jepang', NULL, NULL, NULL),
 ('4', 'Mesin Las Listrik Hitachi SS 5', NULL, NULL, NULL, NULL, '', 'Baik Tidak dipakai', 'Unutilized', 0, '0000', 0, 'Investasi Perusahaan Sendiri', 0, NULL, 1, '', '08. OpProd/Gd.B Lt.1', NULL, NULL, NULL),
-('41', '\"updateCobaDataSheet', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'http://localhost:3000/preview/fileStorage/data_sheet&kartu_mesin/1696938343364-Absen DQlab 1.jpg', '\"linkGoogol\"', NULL),
-('42', 'kitaa bersima', NULL, NULL, '[\"bubut\",\"cutting\"]', '[\"bubut\",\"cutting\"]', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-('43', 'ada yang baru nih', NULL, NULL, '[\"bubut\",\"cutting\"]', '[\"bubut\",\"cutting\"]', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 ('5', 'Mesin Potong/Shearing INOUE / F 250-3', NULL, NULL, NULL, NULL, '', 'Baik Tidak dipakai', 'Unutilized', 0, '1981', 0, 'Investasi Perusahaan Sendiri', 0, NULL, 1, '', '08. OpProd/Gd.O', NULL, NULL, NULL),
 ('6', 'Mesin Sand Blasting KMI', NULL, NULL, NULL, NULL, '', 'Baik Tidak dipakai', 'Unutilized', 0, '0000', 0, 'Investasi Perusahaan Sendiri', 0, NULL, 1, '', '08.OpProd/Gd.O', NULL, NULL, NULL),
 ('7', 'Mesin Gergaji/Hack Saw Machine', NULL, NULL, NULL, NULL, '', 'Baik Tidak dipakai', 'Unutilized', 0, '2012', 0, 'Investasi Perusahaan Sendiri', 266750, NULL, 1, '', '08. OpProd/Gd.O', NULL, NULL, NULL),
 ('8', 'Air Cooled MIG Welding Guns', NULL, NULL, NULL, NULL, '', 'Baik Tidak dipakai', 'Unutilized', 0, '2008', 0, 'Investasi Perusahaan Sendiri', 2350000, NULL, 1, '', '08. OpProd/Gd.O/R.Catkecil', NULL, NULL, NULL),
-('9', 'Air Cooled MIG Welding Guns', NULL, NULL, NULL, NULL, '', 'Baik Tidak dipakai', 'Unutilized', 0, '2008', 0, 'Investasi Perusahaan Sendiri', 2350000, NULL, 1, '', '08. OpProd/Gd.O/R.Catkecil', NULL, NULL, NULL),
-('id36725', 'percobaanUploadKartuMesin', NULL, NULL, '[\"bubut\", \"cutting\", \"kategori\"]', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'http://localhost:3000/preview/fileStorage/data_sheet&kartu_mesin/1697000345969-1303200056.pdf'),
-('id367675', 'percobaanUploadKartuMesin', NULL, NULL, '[\"bubut\", \"cutting\", \"kategori\"]', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'http://localhost:3000/preview/fileStorage/data_sheet&kartu_mesin/1697000354906-1303200056.pdf');
+('9', 'Air Cooled MIG Welding Guns', NULL, NULL, NULL, NULL, '', 'Baik Tidak dipakai', 'Unutilized', 0, '2008', 0, 'Investasi Perusahaan Sendiri', 2350000, NULL, 1, '', '08. OpProd/Gd.O/R.Catkecil', NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -1630,19 +1557,6 @@ CREATE TABLE `len_assets_log` (
   `date_edit` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `len_assets_log`
---
-
-INSERT INTO `len_assets_log` (`id`, `user_edit`, `date_edit`) VALUES
-('id36723', 'darrelCoba', '2023-10-10 04:39:05'),
-('id36725', 'darrelCoba', '2023-10-10 04:41:52'),
-('id36746', 'darrelCoba', '2023-10-10 04:36:10'),
-('id367675', 'darrelCoba', '2023-10-10 21:59:14'),
-('id45', 'usermee', '2023-10-06 01:25:57'),
-('id46', 'admin', '2023-10-06 01:45:33'),
-('id_45', 'saya', '2023-10-05 13:38:48');
-
 -- --------------------------------------------------------
 
 --
@@ -1653,14 +1567,6 @@ CREATE TABLE `len_assets_photo` (
   `id` varchar(100) NOT NULL,
   `gambar` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL CHECK (json_valid(`gambar`))
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `len_assets_photo`
---
-
-INSERT INTO `len_assets_photo` (`id`, `gambar`) VALUES
-('43', '[\"http://localhost:3000/preview/fileStorage/photo/1696845961059-KTM Digital.jpg\"]'),
-('id45', '[\"hwehwe\", \"new_value\", \"new_value\"]');
 
 -- --------------------------------------------------------
 
@@ -1841,7 +1747,7 @@ CREATE TABLE `pal_assets_log` (
 
 CREATE TABLE `pal_assets_photo` (
   `id` varchar(100) NOT NULL,
-  `gambar` varchar(500) DEFAULT NULL
+  `gambar` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL CHECK (json_valid(`gambar`))
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -1953,7 +1859,7 @@ CREATE TABLE `pindad_assets_log` (
 
 CREATE TABLE `pindad_assets_photo` (
   `id` varchar(100) NOT NULL,
-  `gambar` varchar(500) DEFAULT NULL
+  `gambar` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL CHECK (json_valid(`gambar`))
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
