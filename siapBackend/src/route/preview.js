@@ -3,7 +3,7 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 var router = express.Router()
 
-const __dirname = process.cwd()
+const __dirname = process.cwd()+"/src"
 router.get('/*', async(req, res)=>{
     try {
         const userPath = req.params[0];
