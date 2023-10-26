@@ -2,7 +2,7 @@ import multer from "multer";
 import path from 'path';
 import { baseUrl, serverPort } from "../config.js"
 
-const __dirname = process.cwd()+'/src'
+const __dirname = process.cwd()
 
 const storagePhoto = multer.diskStorage({
   destination: (req, file, cb) => {

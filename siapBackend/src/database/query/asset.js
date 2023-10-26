@@ -74,7 +74,7 @@ export function insertLog(body, nama_tabel, date_edit){
     id,
     user_edit,
     date_edit
-    ) VALUES (?, ?, FROM_UNIXTIME(?));`
+    ) VALUES (?, ?, NOW());`
     const values = [
         body.id,
         body.user_edit,
@@ -133,7 +133,7 @@ export function updateQuery(body, nama_tabel, dataSheet, kartuMesin){
 
 export function updateLog(body, nama_tabel, date_edit){
     let queryTable = nama_tabel + '_log'
-    const query = `UPDATE `+queryTable+` SET user_edit=?, date_edit=FROM_UNIXTIME(?) WHERE id=?;`
+    const query = `UPDATE `+queryTable+` SET user_edit=?, date_edit=NOW() WHERE id=?;`
     const values = [body.user_edit, date_edit, body.id]
     return {query: query, value: values}
 }
